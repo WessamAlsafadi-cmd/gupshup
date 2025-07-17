@@ -48,13 +48,16 @@ export const setupPhone = async (params: { tenantId: string; phoneNumber: string
 
 // Install a new tenant (Bitrix24 install)
 export const installTenant = async (installData: any) => {
-  console.log('🔗 Backend API URL:', API_BASE_URL);
   const response = await fetch(`${API_BASE_URL}/bitrix24/install`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(installData)
   });
   const data = await response.json();
-  if (!data.success) throw new Error(data.error || 'Failed to install tenant');
+  if (!data.success) {
+    throw new Error(data.error || 'Failed to install tenant');
+    console.log('🔗 Backend API URL:', API_BASE_URL);
+  }
+  
   return data;
 };
